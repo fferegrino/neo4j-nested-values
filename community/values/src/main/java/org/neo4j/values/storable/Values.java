@@ -31,13 +31,11 @@ import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalUnit;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import org.neo4j.graphdb.spatial.CRS;
 import org.neo4j.graphdb.spatial.Point;
+import org.neo4j.values.AnyValue;
 import org.neo4j.values.TernaryComparator;
 
 import static java.lang.String.format;
@@ -83,6 +81,7 @@ public final class Values
     public static final ArrayValue EMPTY_FLOAT_ARRAY = Values.floatArray( new float[0] );
     public static final ArrayValue EMPTY_DOUBLE_ARRAY = Values.doubleArray( new double[0] );
     public static final TextArray EMPTY_TEXT_ARRAY = Values.stringArray();
+    public static final MapValue EMPTY_MAP = MapValue.EMPTY;
 
     private Values()
     {
@@ -482,6 +481,22 @@ public final class Values
             durations[i] = durationValue( values[i] );
         }
         return new DurationArray( durations );
+    }
+
+    public static MapValue emptyMap()
+    {
+        return EMPTY_MAP;
+    }
+
+    public static MapValue map( String[] keys, AnyValue[] values )
+    {
+        assert keys.length == values.length;
+        HashMap<String,AnyValue> map = new HashMap<>( keys.length );
+        for ( int i = 0; i < keys.length; i++ )
+        {
+            map.put( keys[i], values[i] );
+        }
+        return new MapValue.MapWrappingMapValue( map );
     }
 
     // BOXED FACTORY METHODS
