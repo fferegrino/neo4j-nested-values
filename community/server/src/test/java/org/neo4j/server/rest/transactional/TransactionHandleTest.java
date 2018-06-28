@@ -76,7 +76,7 @@ import static org.neo4j.server.rest.transactional.StubStatementDeserializer.stat
 public class TransactionHandleTest
 {
 
-    static MapValue NO_PARAMS = VirtualValues.emptyMap();
+    static MapValue NO_PARAMS = Values.emptyMap();
 
     @Test
     public void shouldExecuteStatements() throws Exception

@@ -44,7 +44,7 @@ import static org.neo4j.values.storable.DateValue.date;
 import static org.neo4j.values.storable.Values.intValue;
 import static org.neo4j.values.storable.Values.longValue;
 import static org.neo4j.values.storable.Values.stringValue;
-import static org.neo4j.values.virtual.VirtualValues.map;
+import static org.neo4j.values.storable.Values.map;
 
 public class BoltResponseMessageWriterTest
 {

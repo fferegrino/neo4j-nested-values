@@ -133,7 +133,7 @@ class LoadCsvWithQuotesAcceptanceTest extends ExecutionEngineFunSuite with RunWi
   def executeWithCustomDb(db: GraphDatabaseCypherService, query: String): InternalExecutionResult = {
     val engine = ExecutionEngineHelper.createEngine(db)
     RewindableExecutionResult(engine.execute(query,
-                                             VirtualValues.emptyMap(),
+                                             Values.emptyMap(),
                                              engine.queryService.transactionalContext(query = query -> Map())))
   }
 

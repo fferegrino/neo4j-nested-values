@@ -24,8 +24,8 @@ import org.junit.Test;
 import org.neo4j.kernel.impl.util.ValueUtils;
 import org.neo4j.values.AnyValue;
 import org.neo4j.values.storable.MapValue;
+import org.neo4j.values.storable.Values;
 import org.neo4j.values.virtual.MapValueBuilder;
-import org.neo4j.values.virtual.VirtualValues;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -39,7 +39,7 @@ public class BookmarkTest
 {
     private MapValue singletonMap( String key, Object value )
     {
-        return VirtualValues.map( new String[]{key}, new AnyValue[]{ValueUtils.of( value )} );
+        return Values.map( new String[]{key}, new AnyValue[]{ValueUtils.of( value )} );
     }
 
     @Test
@@ -337,7 +337,7 @@ public class BookmarkTest
     @Test
     public void shouldReturnNullWhenNoBookmarks() throws Exception
     {
-        assertNull( Bookmark.fromParamsOrNull( VirtualValues.EMPTY_MAP ) );
+        assertNull( Bookmark.fromParamsOrNull( Values.EMPTY_MAP ) );
     }
 
     @Test

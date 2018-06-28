@@ -60,7 +60,7 @@ public class RelationshipProxyWrappingValue extends RelationshipValue
         }
         catch ( NotFoundException e )
         {
-            p = VirtualValues.EMPTY_MAP;
+            p = Values.EMPTY_MAP;
 
         }
 

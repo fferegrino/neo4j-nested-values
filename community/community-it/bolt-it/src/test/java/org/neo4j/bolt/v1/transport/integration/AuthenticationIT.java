@@ -54,6 +54,7 @@ import org.neo4j.test.TestGraphDatabaseFactory;
 import org.neo4j.test.rule.fs.EphemeralFileSystemRule;
 import org.neo4j.values.AnyValue;
 import org.neo4j.values.storable.MapValue;
+import org.neo4j.values.storable.Values;
 import org.neo4j.values.virtual.VirtualValues;
 
 import static java.util.Collections.singletonList;
@@ -566,7 +567,7 @@ public class AuthenticationIT extends AbstractBoltTransportsTest
 
     private MapValue singletonMap( String key, Object value )
     {
-        return VirtualValues.map( new String[]{key}, new AnyValue[]{ValueUtils.of( value )}  );
+        return Values.map( new String[]{key}, new AnyValue[]{ValueUtils.of( value )}  );
     }
 
     private FailureMessage collectAuthFailureOnFailedAuth()

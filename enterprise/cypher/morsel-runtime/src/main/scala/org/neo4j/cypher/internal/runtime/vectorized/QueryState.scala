@@ -27,7 +27,7 @@ import org.neo4j.values.storable.MapValue
 import org.neo4j.values.virtual.VirtualValues
 
 object QueryState {
-  val EMPTY = QueryState(VirtualValues.EMPTY_MAP, null, 10000, singeThreaded = true)
+  val EMPTY = QueryState(Values.EMPTY_MAP, null, 10000, singeThreaded = true)
 }
 
 /**

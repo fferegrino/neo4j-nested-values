@@ -61,7 +61,7 @@ public class NodeProxyWrappingNodeValue extends NodeValue
         catch ( NotFoundException e )
         {
             l = Values.stringArray();
-            p = VirtualValues.EMPTY_MAP;
+            p = Values.EMPTY_MAP;
 
         }
 

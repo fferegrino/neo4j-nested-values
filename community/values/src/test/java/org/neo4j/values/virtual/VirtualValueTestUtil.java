@@ -29,7 +29,7 @@ import org.neo4j.values.storable.Values;
 import static org.neo4j.values.storable.Values.stringArray;
 import static org.neo4j.values.storable.Values.stringValue;
 import static org.neo4j.values.virtual.VirtualValues.relationshipValue;
-import static org.neo4j.values.virtual.VirtualValues.emptyMap;
+import static org.neo4j.values.storable.Values.emptyMap;
 import static org.neo4j.values.virtual.VirtualValues.nodeValue;
 
 @SuppressWarnings( "WeakerAccess" )
@@ -84,19 +84,6 @@ public class VirtualValueTestUtil
             values[i] = toAnyValue( objects[i] );
         }
         return VirtualValues.list( values );
-    }
-
-    public static VirtualValue map( Object... keyOrVal )
-    {
-        assert keyOrVal.length % 2 == 0;
-        String[] keys = new String[keyOrVal.length / 2];
-        AnyValue[] values = new AnyValue[keyOrVal.length / 2];
-        for ( int i = 0; i < keyOrVal.length; i += 2 )
-        {
-            keys[i / 2] = (String) keyOrVal[i];
-            values[i / 2] = toAnyValue( keyOrVal[i + 1] );
-        }
-        return VirtualValues.map( keys, values );
     }
 
     public static NodeValue[] nodes( long... ids )

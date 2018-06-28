@@ -47,7 +47,7 @@ import org.neo4j.internal.kernel.api.helpers.StubNodeCursor
 import org.neo4j.kernel.impl.core.{EmbeddedProxySPI, NodeProxy}
 import org.neo4j.values.AnyValue
 import org.neo4j.values.storable._
-import org.neo4j.values.virtual.VirtualValues.EMPTY_MAP
+import org.neo4j.values.storable.Values.EMPTY_MAP
 import org.neo4j.values.virtual.{ListValue, NodeValue}
 
 import scala.collection.{JavaConverters, mutable}

@@ -538,7 +538,7 @@ public class Neo4jPackV1 implements Neo4jPack
             int size = (int) unpackMapHeader();
             if ( size == 0 )
             {
-                return VirtualValues.EMPTY_MAP;
+                return Values.EMPTY_MAP;
             }
             MapValueBuilder map;
             if ( size == UNKNOWN_SIZE )

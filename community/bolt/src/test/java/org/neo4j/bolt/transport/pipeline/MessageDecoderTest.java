@@ -52,6 +52,7 @@ import org.neo4j.kernel.impl.util.ValueUtils;
 import org.neo4j.logging.Log;
 import org.neo4j.values.AnyValue;
 import org.neo4j.values.storable.MapValue;
+import org.neo4j.values.storable.Values;
 import org.neo4j.values.virtual.PathValue;
 import org.neo4j.values.virtual.VirtualValues;
 
@@ -81,7 +82,7 @@ import static org.neo4j.bolt.v1.messaging.message.ResetMessage.reset;
 import static org.neo4j.bolt.v1.messaging.message.RunMessage.run;
 import static org.neo4j.bolt.v1.messaging.util.MessageMatchers.serialize;
 import static org.neo4j.values.storable.Values.durationValue;
-import static org.neo4j.values.virtual.VirtualValues.EMPTY_MAP;
+import static org.neo4j.values.storable.Values.EMPTY_MAP;
 
 @RunWith( Parameterized.class )
 public class MessageDecoderTest
@@ -404,7 +405,7 @@ public class MessageDecoderTest
             throws IOException
     {
         String statement = "RETURN $x";
-        MapValue parameters = VirtualValues.map(  new String[]{"x"}, new AnyValue[]{parameterValue } );
+        MapValue parameters = Values.map(  new String[]{"x"}, new AnyValue[]{parameterValue } );
 
         BoltRequestMessageHandler handler = mock( BoltRequestMessageHandler.class );
         channel = new EmbeddedChannel( newDecoder( handler ) );

@@ -21,11 +21,11 @@ package org.neo4j.bolt.v1.messaging.message;
 
 import org.neo4j.bolt.v1.messaging.BoltRequestMessageHandler;
 import org.neo4j.values.storable.MapValue;
-import org.neo4j.values.virtual.VirtualValues;
+import org.neo4j.values.storable.Values;
 
 public class RunMessage implements RequestMessage
 {
-    private static final MapValue EMPTY_PARAMETERS = VirtualValues.EMPTY_MAP;
+    private static final MapValue EMPTY_PARAMETERS = Values.EMPTY_MAP;
 
     /**
      * Factory method for obtaining RUN messages.

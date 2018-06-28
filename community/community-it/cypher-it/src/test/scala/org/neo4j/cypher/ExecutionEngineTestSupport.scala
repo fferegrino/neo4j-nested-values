@@ -119,7 +119,7 @@ trait ExecutionEngineHelper {
   def asMapValue(map: Map[String, Any]): MapValue = {
     val keys = map.keys.toArray
     val values = map.values.map(asValue).toArray
-    VirtualValues.map(keys, values)
+    Values.map(keys, values)
   }
 
   def asValue(any: Any): AnyValue =
