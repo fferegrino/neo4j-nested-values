@@ -22,7 +22,7 @@ package org.neo4j.bolt.v1.messaging;
 import java.util.Objects;
 
 import org.neo4j.bolt.runtime.StateMachineMessage;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 
 import static java.util.Objects.requireNonNull;
 

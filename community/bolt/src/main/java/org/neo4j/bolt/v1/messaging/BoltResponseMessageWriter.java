@@ -29,7 +29,7 @@ import org.neo4j.kernel.api.exceptions.Status;
 import org.neo4j.kernel.impl.logging.LogService;
 import org.neo4j.logging.Log;
 import org.neo4j.values.AnyValue;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 
 import static org.neo4j.bolt.v1.messaging.BoltResponseMessage.FAILURE;
 import static org.neo4j.bolt.v1.messaging.BoltResponseMessage.IGNORED;

@@ -29,7 +29,7 @@ import org.neo4j.bolt.runtime.Neo4jError;
 import org.neo4j.cypher.result.QueryResult;
 import org.neo4j.logging.Log;
 import org.neo4j.values.AnyValue;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 
 /**
  * This class is responsible for routing incoming request messages to a worker

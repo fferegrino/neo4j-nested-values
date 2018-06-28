@@ -32,7 +32,7 @@ import org.neo4j.cypher.internal.v3_5.logical.plans.CoerceToPredicate
 import org.neo4j.cypher.operations.{CypherBoolean, CypherFunctions, CypherMath}
 import org.neo4j.values.AnyValue
 import org.neo4j.values.storable._
-import org.neo4j.values.virtual.{ListValue, MapValue, NodeValue, RelationshipValue}
+import org.neo4j.values.virtual.{ListValue, NodeValue, RelationshipValue}
 import org.opencypher.v9_0.expressions
 import org.opencypher.v9_0.expressions._
 import org.opencypher.v9_0.util.InternalException

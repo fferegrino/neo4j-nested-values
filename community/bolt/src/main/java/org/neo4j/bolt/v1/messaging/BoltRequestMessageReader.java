@@ -25,7 +25,7 @@ import java.util.Map;
 
 import org.neo4j.bolt.v1.packstream.PackStream;
 import org.neo4j.kernel.api.exceptions.Status;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 
 /**
  * Reader for Bolt request messages made available via a {@link Neo4jPack.Unpacker}.

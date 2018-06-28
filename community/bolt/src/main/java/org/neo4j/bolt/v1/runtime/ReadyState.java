@@ -29,7 +29,7 @@ import org.neo4j.bolt.v1.messaging.Reset;
 import org.neo4j.bolt.v1.messaging.Run;
 import org.neo4j.graphdb.security.AuthorizationExpiredException;
 import org.neo4j.values.storable.Values;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 
 import static org.neo4j.util.Preconditions.checkState;
 import static org.neo4j.values.storable.Values.stringArray;

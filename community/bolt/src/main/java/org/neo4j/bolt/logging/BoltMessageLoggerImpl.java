@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 import org.neo4j.kernel.api.exceptions.Status;
 import org.neo4j.values.AnyValue;
 import org.neo4j.values.utils.PrettyPrinter;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 
 import static java.lang.String.format;
 

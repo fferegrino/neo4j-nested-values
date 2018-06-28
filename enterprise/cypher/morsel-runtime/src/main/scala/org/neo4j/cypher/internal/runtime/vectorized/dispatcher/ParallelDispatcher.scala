@@ -25,10 +25,10 @@ package org.neo4j.cypher.internal.runtime.vectorized.dispatcher
 import java.util.concurrent.Executor
 
 import org.neo4j.cypher.internal.runtime.QueryContext
-import org.neo4j.cypher.internal.runtime.parallel.{SimpleScheduler, Scheduler}
+import org.neo4j.cypher.internal.runtime.parallel.{Scheduler, SimpleScheduler}
 import org.neo4j.cypher.internal.runtime.vectorized._
 import org.neo4j.cypher.result.QueryResult.QueryResultVisitor
-import org.neo4j.values.virtual.MapValue
+import org.neo4j.values.storable.MapValue
 import org.opencypher.v9_0.util.TaskCloser
 
 class ParallelDispatcher(morselSize: Int, workers: Int, executor: Executor) extends Dispatcher {

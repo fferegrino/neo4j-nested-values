@@ -44,7 +44,7 @@ import org.neo4j.values.AnyValue;
 import org.neo4j.values.storable.IntegralValue;
 import org.neo4j.values.storable.TemporalValue;
 import org.neo4j.values.storable.TextValue;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 
 import static java.util.Collections.singletonList;
 import static org.neo4j.helpers.collection.Iterables.single;

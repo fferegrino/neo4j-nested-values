@@ -67,7 +67,7 @@ import org.neo4j.kernel.impl.util.ValueUtils;
 import org.neo4j.kernel.lifecycle.LifeSupport;
 import org.neo4j.kernel.monitoring.Monitors;
 import org.neo4j.logging.NullLog;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyMap;

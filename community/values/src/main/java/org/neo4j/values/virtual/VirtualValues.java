@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.neo4j.values.AnyValue;
 import org.neo4j.values.storable.ArrayValue;
+import org.neo4j.values.storable.MapValue;
 import org.neo4j.values.storable.TextArray;
 import org.neo4j.values.storable.TextValue;
 import org.neo4j.values.virtual.PathValue.DirectPathValue;

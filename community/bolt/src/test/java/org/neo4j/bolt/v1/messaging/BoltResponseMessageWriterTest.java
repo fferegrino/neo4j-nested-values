@@ -29,7 +29,7 @@ import org.neo4j.bolt.v1.packstream.PackOutput;
 import org.neo4j.kernel.api.exceptions.Status;
 import org.neo4j.kernel.impl.logging.NullLogService;
 import org.neo4j.values.AnyValue;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

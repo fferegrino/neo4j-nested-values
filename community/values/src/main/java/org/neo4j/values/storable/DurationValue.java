@@ -42,7 +42,6 @@ import org.neo4j.values.ValueMapper;
 import org.neo4j.values.utils.InvalidValuesArgumentException;
 import org.neo4j.values.utils.TemporalArithmeticException;
 import org.neo4j.values.utils.UnsupportedTemporalUnitException;
-import org.neo4j.values.virtual.MapValue;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Long.parseLong;

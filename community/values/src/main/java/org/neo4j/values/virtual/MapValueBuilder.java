@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.neo4j.values.AnyValue;
+import org.neo4j.values.storable.MapValue;
 
 public class MapValueBuilder
 {

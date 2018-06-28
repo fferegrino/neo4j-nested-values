@@ -22,7 +22,7 @@ package org.neo4j.bolt.v1.messaging;
 import java.util.Map;
 
 import org.neo4j.bolt.runtime.Neo4jError;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 
 /**
  * Interface defining simple handler methods for each defined Bolt request message.

@@ -31,7 +31,7 @@ import org.neo4j.bolt.v1.messaging.DiscardAll;
 import org.neo4j.bolt.v1.messaging.Init;
 import org.neo4j.bolt.v1.messaging.Run;
 import org.neo4j.kernel.api.security.AuthToken;
-import org.neo4j.values.virtual.MapValue;
+import org.neo4j.values.storable.MapValue;
 import org.neo4j.values.virtual.VirtualValues;
 
 import static java.util.Collections.emptyMap;
