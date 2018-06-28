@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,18 @@ import static org.neo4j.values.storable.Values.NO_VALUE;
 
 public abstract class MapValue extends Value
 {
+    protected final HashMap<String,AnyValue> map;
+
+    public MapValue(HashMap<String,AnyValue> map)
+    {
+        this.map = map;
+    }
+
+    public MapValue()
+    {
+        this.map = null;
+    }
+
     public static MapValue EMPTY = new MapValue()
     {
         @Override
@@ -79,11 +92,11 @@ public abstract class MapValue extends Value
 
     public static final class MapWrappingMapValue extends MapValue
     {
-        private final Map<String,AnyValue> map;
 
-        public MapWrappingMapValue( Map<String,AnyValue> map )
+
+        public MapWrappingMapValue( HashMap<String,AnyValue> map )
         {
-            this.map = map;
+            super(map);
         }
 
         public Iterable<String> keySet()
@@ -672,32 +685,38 @@ public abstract class MapValue extends Value
     public abstract int size();
 
     @Override
-    public long updateHash(HashFunction hashFunction, long hash) {
+    public long updateHash(HashFunction hashFunction, long hash)
+    {
         return 0;
     }
 
     @Override
-    int unsafeCompareTo(Value other) {
+    int unsafeCompareTo(Value other)
+    {
         return 0;
     }
 
     @Override
-    public <E extends Exception> void writeTo(ValueWriter<E> writer) throws E {
+    public <E extends Exception> void writeTo(ValueWriter<E> writer) throws E
+    {
 
     }
 
     @Override
-    public Object asObjectCopy() {
+    public HashMap<String, AnyValue> asObjectCopy()
+    {
         return null;
     }
 
     @Override
-    public String prettyPrint() {
+    public String prettyPrint()
+    {
         return null;
     }
 
     @Override
-    public NumberType numberType() {
+    public NumberType numberType()
+    {
         return null;
     }
 }

@@ -27,7 +27,7 @@ import org.neo4j.values.storable.MapValue;
 
 public class MapValueBuilder
 {
-    private final Map<String, AnyValue> map;
+    private final HashMap<String, AnyValue> map;
 
     public MapValueBuilder()
     {
