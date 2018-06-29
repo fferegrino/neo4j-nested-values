@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.neo4j.values.storable.CoordinateReferenceSystem;
+import org.neo4j.values.storable.MapValue;
 import org.neo4j.values.virtual.VirtualValueTestUtil;
 
 import static java.lang.Integer.signum;
@@ -38,14 +39,11 @@ import static org.neo4j.values.storable.DurationValue.duration;
 import static org.neo4j.values.storable.LocalDateTimeValue.localDateTime;
 import static org.neo4j.values.storable.LocalTimeValue.localTime;
 import static org.neo4j.values.storable.TimeValue.time;
-import static org.neo4j.values.storable.Values.pointValue;
-import static org.neo4j.values.storable.Values.stringArray;
-import static org.neo4j.values.storable.Values.stringValue;
+import static org.neo4j.values.storable.Values.*;
 import static org.neo4j.values.virtual.VirtualValueTestUtil.list;
 import static org.neo4j.values.storable.ValueTestUtil.map;
 import static org.neo4j.values.virtual.VirtualValueTestUtil.nodes;
 import static org.neo4j.values.virtual.VirtualValueTestUtil.relationships;
-import static org.neo4j.values.storable.Values.emptyMap;
 import static org.neo4j.values.virtual.VirtualValues.node;
 import static org.neo4j.values.virtual.VirtualValues.nodeValue;
 import static org.neo4j.values.virtual.VirtualValues.path;
@@ -55,6 +53,21 @@ import static org.neo4j.values.virtual.VirtualValues.relationshipValue;
 class AnyValueComparatorTest
 {
     private static Comparator<AnyValue> comparator = AnyValues.COMPARATOR;
+
+    private Object[] justMaps = new Object[] {
+            map(),
+            map( "1", 'a' ),
+            map( "1", 'b' ),
+            map( "2", 'a' ),
+            map( "1", map( "1", map( "1", 'a' ) ), "2", 'x' ),
+            map( "1", map( "1", map( "1", 'b' ) ), "2", 'x' ),
+            map( "1", 'a', "2", 'b' ),
+            map( "1", 'b', "2", map() ),
+            map( "1", 'b', "2", map( "10", 'a' ) ),
+            map( "1", 'b', "2", map( "10", 'b' ) ),
+            map( "1", 'b', "2", map( "20", 'a' ) ),
+            map( "1",  charValue('b'), "2", 'a' )
+    };
 
     private Object[] objs = new Object[]{
             // MAP LIKE TYPES
@@ -145,6 +158,28 @@ class AnyValueComparatorTest
         List<AnyValue> values = Arrays.stream( objs )
                         .map( VirtualValueTestUtil::toAnyValue )
                         .collect( Collectors.toList() );
+
+        for ( int i = 0; i < values.size(); i++ )
+        {
+            for ( int j = 0; j < values.size(); j++ )
+            {
+                AnyValue left = values.get( i );
+                AnyValue right = values.get( j );
+
+                int cmpPos = signum( i - j );
+                int cmpVal = signum( compare( comparator, left, right ) );
+                assertEquals( cmpPos, cmpVal,
+                        format( "Comparing %s against %s does not agree with their positions in the sorted list (%d and %d)", left, right, i, j ) );
+            }
+        }
+    }
+
+    @Test
+    void testOrderingJustMaps()
+    {
+        List<AnyValue> values = Arrays.stream( justMaps )
+                .map( VirtualValueTestUtil::toAnyValue )
+                .collect( Collectors.toList() );
 
         for ( int i = 0; i < values.size(); i++ )
         {

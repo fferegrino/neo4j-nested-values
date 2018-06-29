@@ -36,6 +36,7 @@ import org.neo4j.function.ThrowingBiConsumer;
 import org.neo4j.hashing.HashFunction;
 import org.neo4j.helpers.collection.PrefetchingIterator;
 import org.neo4j.values.AnyValue;
+import org.neo4j.values.AnyValues;
 import org.neo4j.values.AnyValueWriter;
 import org.neo4j.values.ValueMapper;
 import org.neo4j.values.VirtualValue;
@@ -541,7 +542,6 @@ public abstract class MapValue extends Value
         return ValueGroup.MAP;
     }
 
-    //@Override
     public int compareTo( Value other, Comparator<AnyValue> comparator )
     {
         if ( !(other instanceof MapValue) )
@@ -708,7 +708,33 @@ public abstract class MapValue extends Value
     @Override
     int unsafeCompareTo(Value other)
     {
-        return 0;
+        MapValue mapValue = (MapValue) other;
+
+        if(mapValue.getContent() == MapValueContent.MIXED || this.getContent() == MapValueContent.MIXED)
+        {
+            throw new IllegalArgumentException("Cannot compare maps that have mixed content");
+        }
+
+        if(mapValue.getContent() == this.getContent())
+        {
+            if(mapValue.getContent() == MapValueContent.EMPTY)
+            {
+                return 0;
+            }
+            return compareTo(mapValue, AnyValues.COMPARATOR);
+        }
+
+        if(mapValue.getContent() == MapValueContent.EMPTY)
+        {
+            return 1;
+        }
+        if(this.getContent() == MapValueContent.EMPTY)
+        {
+            return -1;
+        }
+
+        throw new IllegalArgumentException(String.format("Cannot compare maps with content %s with %s",
+                this.getContent().name(), mapValue.getContent().name()));
     }
 
     @Override
