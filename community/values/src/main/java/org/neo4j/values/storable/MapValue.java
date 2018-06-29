@@ -38,6 +38,7 @@ import org.neo4j.helpers.collection.PrefetchingIterator;
 import org.neo4j.values.AnyValue;
 import org.neo4j.values.AnyValueWriter;
 import org.neo4j.values.ValueMapper;
+import org.neo4j.values.VirtualValue;
 import org.neo4j.values.virtual.ListValue;
 import org.neo4j.values.virtual.VirtualValues;
 
@@ -50,11 +51,18 @@ public abstract class MapValue extends Value
     public MapValue(HashMap<String,AnyValue> map)
     {
         this.map = map;
+        for(Map.Entry<String, AnyValue> entry : map.entrySet())
+        {
+            if(entry.getValue() instanceof Value)
+                this.content = this.content.Combine(MapValueContent.STORABLE);
+            else if (entry.getValue() instanceof VirtualValue)
+                this.content = this.content.Combine(MapValueContent.VIRTUAL);
+        }
     }
 
     public MapValue()
     {
-        this.map = null;
+        this.map = new HashMap<>();
     }
 
     public static MapValue EMPTY = new MapValue()
@@ -683,6 +691,13 @@ public abstract class MapValue extends Value
     }
 
     public abstract int size();
+
+    MapValueContent content = MapValueContent.EMPTY;
+
+    public MapValueContent getContent()
+    {
+        return this.content;
+    }
 
     @Override
     public long updateHash(HashFunction hashFunction, long hash)
