@@ -100,6 +100,10 @@ public interface ValueWriter<E extends Exception>
 
     void writeDateTime( ZonedDateTime zonedDateTime ) throws E;
 
+    void beginMap( int size ) throws E;
+
+    void endMap() throws E;
+
     class Adapter<E extends Exception> implements ValueWriter<E>
     {
         @Override
@@ -199,6 +203,16 @@ public interface ValueWriter<E extends Exception>
 
         @Override
         public void writeDateTime( ZonedDateTime zonedDateTime ) throws E
+        {   // no-op
+        }
+
+        @Override
+        public void beginMap(int size) throws E
+        {   // no-op
+        }
+
+        @Override
+        public void endMap() throws E
         {   // no-op
         }
     }

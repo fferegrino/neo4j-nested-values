@@ -204,6 +204,18 @@ public final class ArrayEncoder
         }
 
         @Override
+        public void beginMap(int size) throws RuntimeException
+        {
+            // TODO: Figure out implementation
+        }
+
+        @Override
+        public void endMap() throws RuntimeException
+        {
+            // TODO: Figure out implementation
+        }
+
+        @Override
         public void beginArray( int size, ArrayType arrayType )
         {
             if ( size > 0 )

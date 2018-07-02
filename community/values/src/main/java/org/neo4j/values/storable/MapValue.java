@@ -740,7 +740,19 @@ public abstract class MapValue extends Value
     @Override
     public <E extends Exception> void writeTo(ValueWriter<E> writer) throws E
     {
+        if (getContent() != MapValueContent.STORABLE || getContent() != MapValueContent.EMPTY)
+        {
+            // Throw an exception or so...
+            return;
+        }
 
+        // TODO: Fix possible duplication of code.
+        writer.beginMap( size() );
+        foreach( ( s, anyValue ) -> {
+            writer.writeString( s );
+            ((Value)anyValue).writeTo( writer );
+        } );
+        writer.endMap();
     }
 
     @Override

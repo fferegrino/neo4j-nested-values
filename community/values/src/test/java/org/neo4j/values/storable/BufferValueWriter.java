@@ -44,6 +44,8 @@ public class BufferValueWriter implements ValueWriter<RuntimeException>
         WriteByteArray,
         BeginArray,
         EndArray,
+        BeginMap,
+        EndMap,
     }
 
     public static class Special
@@ -216,9 +218,33 @@ public class BufferValueWriter implements ValueWriter<RuntimeException>
         buffer.add( DateTimeValue.datetime( zonedDateTime ) );
     }
 
+    @Override
+    public void beginMap( int size )
+    {
+        buffer.add( Specials.beginMap( size ) );
+    }
+
+    @Override
+    public void endMap()
+    {
+        buffer.add( Specials.endMap() );
+    }
+
+
     @SuppressWarnings( "WeakerAccess" )
     public static class Specials
     {
+
+        public static Special beginMap( int size )
+        {
+            return new Special( SpecialKind.BeginMap, size );
+        }
+
+        public static Special endMap()
+        {
+            return new Special( SpecialKind.EndMap, 0 );
+        }
+
         public static Special byteArray( byte[] value )
         {
             return new Special( WriteByteArray, Arrays.hashCode( value ) );

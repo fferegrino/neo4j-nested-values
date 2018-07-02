@@ -39,10 +39,6 @@ public interface AnyValueWriter<E extends Exception> extends ValueWriter<E>
 
     void writeRelationship( long relId, long startNodeId, long endNodeId, TextValue type, MapValue properties ) throws E;
 
-    void beginMap( int size ) throws E;
-
-    void endMap() throws E;
-
     void beginList( int size ) throws E;
 
     void endList() throws E;

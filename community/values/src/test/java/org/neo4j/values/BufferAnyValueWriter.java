@@ -44,9 +44,7 @@ public class BufferAnyValueWriter extends BufferValueWriter implements AnyValueW
         WriteRelationshipReference,
         EndEdge,
         WritePath,
-        BeginMap,
         WriteKeyId,
-        EndMap,
         BeginList,
         EndList,
     }
@@ -119,18 +117,6 @@ public class BufferAnyValueWriter extends BufferValueWriter implements AnyValueW
     }
 
     @Override
-    public void beginMap( int size )
-    {
-        buffer.add( Specials.beginMap( size ) );
-    }
-
-    @Override
-    public void endMap()
-    {
-        buffer.add( Specials.endMap() );
-    }
-
-    @Override
     public void beginList( int size )
     {
         buffer.add( Specials.beginList( size ) );
@@ -178,16 +164,6 @@ public class BufferAnyValueWriter extends BufferValueWriter implements AnyValueW
         public static Special writeRelationshipReference( long edgeId )
         {
             return new Special( SpecialKind.WriteRelationshipReference, (int) edgeId );
-        }
-
-        public static Special beginMap( int size )
-        {
-            return new Special( SpecialKind.BeginMap, size );
-        }
-
-        public static Special endMap()
-        {
-            return new Special( SpecialKind.EndMap, 0 );
         }
 
         public static Special beginList( int size )

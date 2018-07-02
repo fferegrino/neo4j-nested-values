@@ -170,4 +170,16 @@ public abstract class ThrowingValueWriter<E extends Exception> implements ValueW
     {
         throw exception( "writeDateTime" );
     }
+
+    @Override
+    public void beginMap(int size) throws E
+    {
+        throw exception("beginMap");
+    }
+
+    @Override
+    public void endMap() throws E
+    {
+        throw exception("endMap");
+    }
 }
