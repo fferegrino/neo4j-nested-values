@@ -184,6 +184,51 @@ class MapValueTest
         assertEquals(MapValueContent.EMPTY, emptyMap.getContent());
     }
 
+    @Test
+    void shouldPrettyPrintEmptyMapCorrectly()
+    {
+        MapValue emptyMap = mapValue();
+        String expected = "{}";
+        String actual = emptyMap.prettyPrint();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldPrettyPrintMapMultipleValues()
+    {
+        MapValue emptyMap = mapValue("k1", intValue(1), "k2", floatValue(1));
+
+        String expected = "{'k1':1, 'k2':1.0}";
+
+        String actual = emptyMap.prettyPrint();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldPrettyPrintMapWithStrings()
+    {
+        MapValue stringMaps = mapValue("key1", stringValue("neo4j is cool"), "key2", stringValue("yes it is"));
+        String expected = "{'key1':'neo4j is cool', 'key2':'yes it is'}";
+
+        String actual = stringMaps.prettyPrint();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldPrettyPrintMapWithArrays()
+    {
+        MapValue stringMaps = mapValue("key1", stringArray("neo4j", "OrientDB", "JanusGraph"), "key2", stringValue("yes it is"));
+        // TODO: Check StringArray prettyPrint implementation
+        String expected = "{'key1':[neo4j, OrientDB, JanusGraph], 'key2':'yes it is'}";
+
+        String actual = stringMaps.prettyPrint();
+
+        assertEquals(expected, actual);
+    }
+
     private void assertMapValueEquals( MapValue a, MapValue b )
     {
         assertThat( a, equalTo( b ) );
