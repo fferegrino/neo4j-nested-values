@@ -34,6 +34,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.neo4j.values.storable.Values.EMPTY_MAP;
 import static org.neo4j.values.storable.Values.intValue;
+import static org.neo4j.values.storable.Values.floatValue;
 import static org.neo4j.values.storable.Values.map;
 import static org.neo4j.values.storable.Values.stringValue;
 
@@ -182,6 +183,51 @@ class MapValueTest
         MapValue emptyMap = mapValue();
 
         assertEquals(MapValueContent.EMPTY, emptyMap.getContent());
+    }
+
+    @Test
+    void shouldPrettyPrintEmptyMapCorrectly()
+    {
+        MapValue emptyMap = mapValue();
+        String expected = "{}";
+        String actual = emptyMap.prettyPrint();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldPrettyPrintMapMultipleValues()
+    {
+        MapValue emptyMap = mapValue("k1", intValue(1), "k2", floatValue(1));
+
+        String expected = "{'k1':1, 'k2':1.0}";
+
+        String actual = emptyMap.prettyPrint();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldPrettyPrintMapWithStrings()
+    {
+        MapValue stringMaps = mapValue("key1", stringValue("neo4j is cool"), "key2", stringValue("yes it is"));
+        String expected = "{'key1':'neo4j is cool', 'key2':'yes it is'}";
+
+        String actual = stringMaps.prettyPrint();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldPrettyPrintMapWithArrays()
+    {
+        MapValue stringMaps = mapValue("key1", stringArray("neo4j", "OrientDB", "JanusGraph"), "key2", stringValue("yes it is"));
+        // TODO: Check StringArray prettyPrint implementation
+        String expected = "{'key1':[neo4j, OrientDB, JanusGraph], 'key2':'yes it is'}";
+
+        String actual = stringMaps.prettyPrint();
+
+        assertEquals(expected, actual);
     }
 
     private void assertMapValueEquals( MapValue a, MapValue b )
