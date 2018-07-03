@@ -22,6 +22,7 @@ package org.neo4j.values.storable;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -50,6 +51,44 @@ class ValueAsObjectCopyTest
         {
             test.assertGeneratesPublic();
         }
+    }
+
+    // Tests for MapValues
+
+    @Test
+    void shouldGetUnderlyingHashMap()
+    {
+        String[] keys =
+                {
+                        "k1",
+                        "k2",
+                        "k3"
+                };
+        Value[] valuesForMapValue =
+                {
+                        Values.byteValue((byte)1),
+                        Values.intValue(10),
+                        Values.stringValue("v3")
+                };
+
+        Value[] valuesForHashMap =
+                {
+                        Values.byteValue((byte)1),
+                        Values.intValue(10),
+                        Values.stringValue("v3")
+                };
+
+        MapValue value = Values.map(keys, valuesForMapValue);
+
+
+
+        HashMap<String, Value> expected = new HashMap<>();
+        for(int i = 0; i < keys.length; i++)
+        {
+            expected.put(keys[i], valuesForHashMap[i]);
+        }
+
+        assertThat(value.asObjectCopy(), equalTo(expected));
     }
 
     // DIRECT ARRAYS

@@ -756,9 +756,9 @@ public abstract class MapValue extends Value
     }
 
     @Override
-    public HashMap<String, AnyValue> asObjectCopy()
+    public Object asObjectCopy()
     {
-        return null;
+        return map.clone();
     }
 
     @Override
