@@ -42,7 +42,7 @@ import org.neo4j.resources.CpuClock;
 import org.neo4j.resources.HeapAllocation;
 import org.neo4j.storageengine.api.lock.ResourceType;
 import org.neo4j.time.Clocks;
-import org.neo4j.values.virtual.VirtualValues;
+import org.neo4j.values.storable.Values;
 
 import static java.util.Collections.singletonList;
 import static org.hamcrest.Matchers.isEmptyString;

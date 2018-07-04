@@ -48,7 +48,7 @@ import org.neo4j.logging.NullLogProvider;
 import org.neo4j.server.rest.transactional.error.Neo4jError;
 import org.neo4j.server.rest.web.TransactionUriScheme;
 import org.neo4j.values.storable.MapValue;
-import org.neo4j.values.virtual.VirtualValues;
+import org.neo4j.values.storable.Values;
 
 import static java.util.Arrays.asList;
 import static org.mockito.ArgumentMatchers.anyCollection;

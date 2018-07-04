@@ -35,7 +35,7 @@ import org.neo4j.cypher.internal.v3_5.logical.plans.CoerceToPredicate
 import org.neo4j.values.storable.LocalTimeValue.localTime
 import org.neo4j.values.storable.Values._
 import org.neo4j.values.storable.{DoubleValue, Values}
-import org.neo4j.values.virtual.VirtualValues.{EMPTY_LIST, EMPTY_MAP, list, map}
+import org.neo4j.values.virtual.VirtualValues.{EMPTY_LIST, list}
 import org.opencypher.v9_0.ast.AstConstructionTestSupport
 import org.opencypher.v9_0.expressions._
 import org.opencypher.v9_0.util.test_helpers.CypherFunSuite

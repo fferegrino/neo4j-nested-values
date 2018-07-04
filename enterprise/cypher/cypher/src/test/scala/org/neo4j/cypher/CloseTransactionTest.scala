@@ -42,6 +42,7 @@ import org.neo4j.kernel.impl.proc.Procedures
 import org.neo4j.procedure.Mode
 import org.neo4j.test.TestGraphDatabaseFactory
 import org.neo4j.values.virtual.VirtualValues
+import org.neo4j.values.storable.Values
 
 import scala.collection.immutable.Map
 import scala.collection.mutable.ArrayBuffer
