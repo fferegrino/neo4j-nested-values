@@ -740,7 +740,7 @@ public abstract class MapValue extends Value
     @Override
     public <E extends Exception> void writeTo(ValueWriter<E> writer) throws E
     {
-        if (getContent() != MapValueContent.STORABLE || getContent() != MapValueContent.EMPTY)
+        if (getContent() == MapValueContent.VIRTUAL || getContent() == MapValueContent.MIXED)
         {
             // Throw an exception or so...
             return;
