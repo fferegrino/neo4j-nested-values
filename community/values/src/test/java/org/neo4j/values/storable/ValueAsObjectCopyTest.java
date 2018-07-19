@@ -71,24 +71,70 @@ class ValueAsObjectCopyTest
                         Values.stringValue("v3")
                 };
 
-        Value[] valuesForHashMap =
+        Object[] valuesForHashMap =
                 {
-                        Values.byteValue((byte)1),
-                        Values.intValue(10),
-                        Values.stringValue("v3")
+                        (byte)1,
+                        10,
+                        "v3"
                 };
 
         MapValue value = Values.map(keys, valuesForMapValue);
 
 
 
-        HashMap<String, Value> expected = new HashMap<>();
+        HashMap<String, Object> expected = new HashMap<>();
         for(int i = 0; i < keys.length; i++)
         {
-            expected.put(keys[i], valuesForHashMap[i]);
+            expected.put(new String(keys[i]), valuesForHashMap[i]);
         }
 
-        //assertThat(value.asObjectCopy(), equalTo(expected));
+        assertThat(value.asObjectCopy(), equalTo(expected));
+    }
+
+    @Test
+    void shouldGetUnderlyingHashMapNested()
+    {
+        String[] keys =
+                {
+                        "k1",
+                        "k2",
+                        "k3",
+                        "k4"
+                };
+
+        TextValue s1 = Values.stringValue("s1");
+        Value[] valuesForMapValue =
+                {
+                        Values.byteValue((byte)1),
+                        Values.intValue(10),
+                        Values.stringValue("v3"),
+                        Values.map(new String[]{"n1"}, new Value[] { s1 })
+                };
+
+        Object[] valuesForHashMap =
+                {
+                        (byte)1,
+                        10,
+                        "v3",
+                        new HashMap<String, Object>()
+                        {
+                            {
+                                put("n1","s1");
+                            }
+                        }
+                };
+
+        MapValue value = Values.map(keys, valuesForMapValue);
+
+
+
+        HashMap<String, Object> expected = new HashMap<>();
+        for(int i = 0; i < keys.length; i++)
+        {
+            expected.put(new String(keys[i]), valuesForHashMap[i]);
+        }
+
+        assertThat(value.asObjectCopy(), equalTo(expected));
     }
 
     // DIRECT ARRAYS

@@ -758,8 +758,13 @@ public abstract class MapValue extends Value
     @Override
     public Object asObjectCopy()
     {
-        // TODO: Fix implementation
-        return null;
+        // TODO: Validate the usage of a HashMap to provide a "deep copy" of the underlying value
+        HashMap<String, Object> deepCopy = new HashMap<>();
+        for (Map.Entry<String, AnyValue> entry : this.map.entrySet())
+        {
+            deepCopy.put(new String(entry.getKey()), ((Value)entry.getValue()).asObjectCopy());
+        }
+        return deepCopy;
     }
 
     @Override
