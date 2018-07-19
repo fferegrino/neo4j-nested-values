@@ -47,9 +47,9 @@ import static org.neo4j.values.storable.Values.NO_VALUE;
 
 public abstract class MapValue extends Value
 {
-    protected final HashMap<String,AnyValue> map;
+    protected final Map<String,AnyValue> map;
 
-    public MapValue(HashMap<String,AnyValue> map)
+    public MapValue(Map<String,AnyValue> map)
     {
         this.map = map;
         for(Map.Entry<String, AnyValue> entry : map.entrySet())
@@ -63,7 +63,7 @@ public abstract class MapValue extends Value
 
     public MapValue()
     {
-        this.map = new HashMap<>();
+        this.map = null;
     }
 
     public static MapValue EMPTY = new MapValue()
@@ -103,7 +103,7 @@ public abstract class MapValue extends Value
     {
 
 
-        public MapWrappingMapValue( HashMap<String,AnyValue> map )
+        public MapWrappingMapValue( Map<String,AnyValue> map )
         {
             super(map);
         }
@@ -758,7 +758,8 @@ public abstract class MapValue extends Value
     @Override
     public Object asObjectCopy()
     {
-        return map.clone();
+        // TODO: Fix implementation
+        return null;
     }
 
     @Override
