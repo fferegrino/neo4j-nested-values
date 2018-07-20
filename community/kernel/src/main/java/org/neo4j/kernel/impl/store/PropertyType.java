@@ -226,6 +226,20 @@ public enum PropertyType
         {
             return TemporalType.calculateNumberOfBlocksUsed( firstBlock );
         }
+    },
+    MAP( 15 )
+    {
+        @Override
+        public Value value( PropertyBlock block, PropertyStore store )
+        {
+            return LongerShortString.decode( block );
+        }
+
+        @Override
+        public int calculateNumberOfBlocksUsed( long firstBlock )
+        {
+            return LongerShortString.calculateNumberOfBlocksUsed( firstBlock );
+        }
     };
 
     public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
