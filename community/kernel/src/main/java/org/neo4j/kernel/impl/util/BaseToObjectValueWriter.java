@@ -138,6 +138,12 @@ public abstract class BaseToObjectValueWriter<E extends Exception> implements An
     }
 
     @Override
+    public void writeMap(HashMap<String, Object> map)
+    {
+        // TODO: Implement this
+    }
+
+    @Override
     public void endMap() throws RuntimeException
     {
         assert !stack.isEmpty();

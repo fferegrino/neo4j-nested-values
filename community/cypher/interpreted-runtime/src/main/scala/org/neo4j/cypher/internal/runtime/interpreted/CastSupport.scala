@@ -21,6 +21,7 @@ package org.neo4j.cypher.internal.runtime.interpreted
 
 import java.time._
 import java.time.temporal.TemporalAmount
+import java.util
 
 import org.opencypher.v9_0.util.CypherTypeException
 import org.neo4j.graphdb.spatial.Point
@@ -201,6 +202,8 @@ object CastSupport {
                                    properties: MapValue): Unit = fail()
 
     override def beginMap(size: Int): Unit = fail()
+
+    override def writeMap(map: util.HashMap[String, AnyRef]): Unit = fail()
 
     override def endMap(): Unit = fail()
 

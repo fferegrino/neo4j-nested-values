@@ -25,6 +25,7 @@ import java.time.LocalTime;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.Base64;
+import java.util.HashMap;
 
 import org.neo4j.string.UTF8;
 import org.neo4j.values.storable.CoordinateReferenceSystem;
@@ -205,6 +206,12 @@ public final class ArrayEncoder
 
         @Override
         public void beginMap(int size) throws RuntimeException
+        {
+            // TODO: Figure out implementation
+        }
+
+        @Override
+        public  void writeMap(HashMap<String, Object> map) throws RuntimeException
         {
             // TODO: Figure out implementation
         }

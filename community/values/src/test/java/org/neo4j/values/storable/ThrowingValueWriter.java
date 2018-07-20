@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
 import java.util.function.Supplier;
 
 public abstract class ThrowingValueWriter<E extends Exception> implements ValueWriter<E>
@@ -172,9 +173,15 @@ public abstract class ThrowingValueWriter<E extends Exception> implements ValueW
     }
 
     @Override
-    public void beginMap(int size) throws E
+    public void beginMap( int size ) throws E
     {
         throw exception("beginMap");
+    }
+
+    @Override
+    public void writeMap( HashMap<String, Object> map ) throws E
+    {
+        throw exception("writeMap");
     }
 
     @Override

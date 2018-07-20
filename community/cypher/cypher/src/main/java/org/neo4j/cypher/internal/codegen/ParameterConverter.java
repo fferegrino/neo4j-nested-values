@@ -110,6 +110,11 @@ class ParameterConverter implements AnyValueWriter<RuntimeException>
     }
 
     @Override
+    public void writeMap(HashMap<String, Object> map) throws RuntimeException {
+        // TODO: Provide implementation
+    }
+
+    @Override
     public void endMap()
     {
         assert !stack.isEmpty();

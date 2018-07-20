@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
 
 /**
  * Writer of values.
@@ -101,6 +102,8 @@ public interface ValueWriter<E extends Exception>
     void writeDateTime( ZonedDateTime zonedDateTime ) throws E;
 
     void beginMap( int size ) throws E;
+
+    void writeMap(HashMap<String, Object> map) throws E;
 
     void endMap() throws E;
 
@@ -208,6 +211,11 @@ public interface ValueWriter<E extends Exception>
 
         @Override
         public void beginMap(int size) throws E
+        {   // no-op
+        }
+
+        @Override
+        public void writeMap(HashMap<String, Object> map) throws E
         {   // no-op
         }
 

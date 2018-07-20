@@ -28,6 +28,7 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static java.lang.String.format;
@@ -222,6 +223,13 @@ public class BufferValueWriter implements ValueWriter<RuntimeException>
     public void beginMap( int size )
     {
         buffer.add( Specials.beginMap( size ) );
+    }
+
+    @Override
+    public void writeMap(HashMap<String, Object> map) throws RuntimeException
+    {
+        // TODO: Verify implementation
+        buffer.add(map);
     }
 
     @Override

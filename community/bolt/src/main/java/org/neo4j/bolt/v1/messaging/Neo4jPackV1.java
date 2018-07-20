@@ -26,6 +26,7 @@ import java.time.LocalTime;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.neo4j.bolt.messaging.StructType;
@@ -155,6 +156,11 @@ public class Neo4jPackV1 implements Neo4jPack
         public void beginMap( int size ) throws IOException
         {
             packMapHeader( size );
+        }
+
+        @Override
+        public void writeMap(HashMap<String, Object> map) {
+            // TODO: Figure out implementation
         }
 
         @Override
