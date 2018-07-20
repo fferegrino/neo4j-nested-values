@@ -137,6 +137,51 @@ class ValueAsObjectCopyTest
         assertThat(value.asObjectCopy(), equalTo(expected));
     }
 
+    @Test
+    void shouldGetUnderlyingHashMapArray()
+    {
+        String[] keys =
+                {
+                        "k1",
+                        "k2",
+                        "k3",
+                        "k4"
+                };
+
+        TextValue s1 = Values.stringValue("s1");
+        Value[] valuesForMapValue =
+                {
+                        Values.byteValue((byte)1),
+                        Values.intValue(10),
+                        Values.stringValue("v3"),
+                        Values.intArray(new int[]{ 10, 11, 12, 13, 14 })
+                };
+
+        Object[] valuesForHashMap =
+                {
+                        (byte)1,
+                        10,
+                        "v3",
+                        new int[]{ 10, 11, 12, 13, 14 }
+                };
+
+        MapValue value = Values.map(keys, valuesForMapValue);
+
+
+
+        HashMap<String, Object> expected = new HashMap<>();
+        for(int i = 0; i < keys.length; i++)
+        {
+            expected.put(new String(keys[i]), valuesForHashMap[i]);
+        }
+
+
+        boolean equals = value.asObjectCopy().equals(expected);
+
+        // Fails since it is performing array comparison directly
+        assertThat(value.asObjectCopy(), equalTo(expected));
+    }
+
     // DIRECT ARRAYS
 
     @Test
