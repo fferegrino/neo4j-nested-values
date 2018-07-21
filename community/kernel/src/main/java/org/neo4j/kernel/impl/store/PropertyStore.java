@@ -56,6 +56,7 @@ import org.neo4j.values.storable.ArrayValue;
 import org.neo4j.values.storable.CoordinateReferenceSystem;
 import org.neo4j.values.storable.Value;
 import org.neo4j.values.storable.Values;
+import org.neo4j.values.utils.MapValueUtil;
 
 import static org.neo4j.kernel.impl.store.DynamicArrayStore.getRightArray;
 import static org.neo4j.kernel.impl.store.NoStoreHeaderFormat.NO_STORE_HEADER_FORMAT;
@@ -97,6 +98,8 @@ import static org.neo4j.kernel.impl.store.record.RecordLoad.NORMAL;
  * 11: SHORT STRING
  * 12: SHORT ARRAY
  * 13: GEOMETRY
+ *
+ * 15: MAP REFERENCE (Stored as a STRING REFERENCE)
  * </pre>
  * <h2>value formats</h2>
  * <pre>
@@ -514,14 +517,9 @@ public class PropertyStore extends CommonAbstractStore<PropertyRecord,NoStoreHea
         @Override
         public void writeMap(HashMap<String, Object> map) throws IllegalArgumentException
         {
-
-            // Using a HashMap as backing storage...
-            // TODO: find a HashMap -> String tool
-            String mapRepresentation = null;
-
+            String mapRepresentation = MapValueUtil.stringifyMap(map);
             byte[] encodedMap = encodeString(mapRepresentation);
             List<DynamicRecord> valueRecords = new ArrayList<>();
-
 
             allocateStringRecords( valueRecords, encodedMap, stringAllocator );
             setSingleBlockValue( block, keyId, PropertyType.MAP, Iterables.first( valueRecords ).getId() );
