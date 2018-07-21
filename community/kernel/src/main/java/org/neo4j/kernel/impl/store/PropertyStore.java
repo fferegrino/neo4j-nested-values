@@ -27,6 +27,7 @@ import java.nio.ByteOrder;
 import java.nio.file.OpenOption;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.ToIntFunction;
@@ -240,6 +241,10 @@ public class PropertyStore extends CommonAbstractStore<PropertyRecord,NoStoreHea
             {
                 stringStore.updateRecord( valueRecord );
             }
+            if (recordType == PropertyType.MAP)
+            {
+                stringStore.updateRecord(valueRecord);
+            }
             else if ( recordType == PropertyType.ARRAY )
             {
                 arrayStore.updateRecord( valueRecord );
@@ -292,6 +297,7 @@ public class PropertyStore extends CommonAbstractStore<PropertyRecord,NoStoreHea
         {
         case ARRAY: return arrayStore;
         case STRING: return stringStore;
+        case MAP: return stringStore;
         default: return null;
         }
     }
@@ -501,6 +507,27 @@ public class PropertyStore extends CommonAbstractStore<PropertyRecord,NoStoreHea
             for ( DynamicRecord valueRecord : valueRecords )
             {
                 valueRecord.setType( PropertyType.STRING.intValue() );
+            }
+            block.setValueRecords( valueRecords );
+        }
+
+        @Override
+        public void writeMap(HashMap<String, Object> map) throws IllegalArgumentException
+        {
+
+            // Using a HashMap as backing storage...
+            // TODO: find a HashMap -> String tool
+            String mapRepresentation = null;
+
+            byte[] encodedMap = encodeString(mapRepresentation);
+            List<DynamicRecord> valueRecords = new ArrayList<>();
+
+
+            allocateStringRecords( valueRecords, encodedMap, stringAllocator );
+            setSingleBlockValue( block, keyId, PropertyType.MAP, Iterables.first( valueRecords ).getId() );
+            for ( DynamicRecord valueRecord : valueRecords )
+            {
+                valueRecord.setType( PropertyType.MAP.intValue() );
             }
             block.setValueRecords( valueRecords );
         }

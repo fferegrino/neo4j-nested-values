@@ -31,12 +31,14 @@ import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalUnit;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 import org.neo4j.graphdb.spatial.CRS;
 import org.neo4j.graphdb.spatial.Point;
 import org.neo4j.values.AnyValue;
-import org.neo4j.values.TernaryComparator;
 
 import static java.lang.String.format;
 import static org.neo4j.values.storable.DateTimeValue.datetime;
@@ -58,6 +60,7 @@ import static org.neo4j.values.storable.TimeValue.time;
  * node, relationship and graph properties. Virtual values are not supported as property values, but might be created
  * and returned as part of cypher execution. These include Node, Relationship and Path.
  */
+
 @SuppressWarnings( "WeakerAccess" )
 public final class Values
 {
@@ -497,6 +500,12 @@ public final class Values
             map.put( keys[i], values[i] );
         }
         return new MapValue.MapWrappingMapValue( map );
+    }
+
+    public static MapValue mapValue(String mapRepresentation)
+    {
+        // TODO: Rebuild the map from a string
+        return MapValue.EMPTY;
     }
 
     // BOXED FACTORY METHODS

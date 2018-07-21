@@ -41,6 +41,7 @@ import org.neo4j.values.storable.DoubleValue;
 import org.neo4j.values.storable.FloatValue;
 import org.neo4j.values.storable.IntValue;
 import org.neo4j.values.storable.LongValue;
+import org.neo4j.values.storable.MapValue;
 import org.neo4j.values.storable.ShortValue;
 import org.neo4j.values.storable.TextValue;
 import org.neo4j.values.storable.Value;
@@ -234,6 +235,8 @@ class RecordPropertyCursor extends PropertyRecord implements StoragePropertyCurs
             return geometryValue();
         case TEMPORAL:
             return temporalValue();
+        case MAP:
+            return readMap();
         default:
             throw new IllegalStateException( "Unsupported PropertyType: " + type.name() );
         }
@@ -388,11 +391,28 @@ class RecordPropertyCursor extends PropertyRecord implements StoragePropertyCurs
         read.getRecordByCursor( reference, record, RecordLoad.FORCE, pageCursor );
     }
 
-    private TextValue string( RecordPropertyCursor cursor, long reference, PageCursor page )
+    private MapValue readMap()
+    {
+        long reference = PropertyBlock.fetchLong( currentBlock() );
+        if ( stringPage == null )
+        {
+            stringPage = stringPage( reference );
+        }
+        String string = getString(this, reference, stringPage);
+        return Values.mapValue(string);
+    }
+
+    private String getString( RecordPropertyCursor cursor, long reference, PageCursor page )
     {
         ByteBuffer buffer = cursor.buffer = read.loadString( reference, cursor.buffer, page );
         buffer.flip();
-        return Values.stringValue( UTF8.decode( buffer.array(), 0, buffer.limit() ) );
+        return UTF8.decode( buffer.array(), 0, buffer.limit() );
+    }
+
+    private TextValue string( RecordPropertyCursor cursor, long reference, PageCursor page )
+    {
+        String value = getString(cursor, reference, page);
+        return Values.stringValue(value);
     }
 
     private ArrayValue array( RecordPropertyCursor cursor, long reference, PageCursor page )

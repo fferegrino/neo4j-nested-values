@@ -232,7 +232,8 @@ public enum PropertyType
         @Override
         public Value value( PropertyBlock block, PropertyStore store )
         {
-            return LongerShortString.decode( block );
+            String mapRepresentation = store.getStringFor(block);
+            return Values.mapValue(mapRepresentation);
         }
 
         @Override
@@ -313,6 +314,8 @@ public enum PropertyType
             return GEOMETRY;
         case 14:
             return TEMPORAL;
+        case 15:
+            return MAP;
         default:
             return null;
         }
