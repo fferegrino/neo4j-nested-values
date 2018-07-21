@@ -748,15 +748,12 @@ public abstract class MapValue extends Value
 
         // TODO: Fix possible duplication of code.
         writer.beginMap( size() );
-        foreach( ( s, anyValue ) -> {
-            writer.writeString( s );
-            ((Value)anyValue).writeTo( writer );
-        } );
+        writer.writeMap( asObjectCopy() );
         writer.endMap();
     }
 
     @Override
-    public Object asObjectCopy()
+    public HashMap<String, Object> asObjectCopy()
     {
         // TODO: Validate the usage of a HashMap to provide a "deep copy" of the underlying value
         HashMap<String, Object> deepCopy = new HashMap<>();
