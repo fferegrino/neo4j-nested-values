@@ -20,6 +20,7 @@
 package org.neo4j.values.storable;
 
 import org.junit.jupiter.api.Test;
+import org.neo4j.values.utils.MapTestUtil;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -88,7 +89,7 @@ class ValueAsObjectCopyTest
             expected.put(new String(keys[i]), valuesForHashMap[i]);
         }
 
-        assertThat(value.asObjectCopy(), equalTo(expected));
+        assertTrue(MapTestUtil.customComparison(value.asObjectCopy(), expected));
     }
 
     @Test
@@ -134,7 +135,7 @@ class ValueAsObjectCopyTest
             expected.put(new String(keys[i]), valuesForHashMap[i]);
         }
 
-        assertThat(value.asObjectCopy(), equalTo(expected));
+        assertTrue(MapTestUtil.customComparison(value.asObjectCopy(), expected));
     }
 
     @Test
@@ -166,8 +167,7 @@ class ValueAsObjectCopyTest
                 };
 
         MapValue value = Values.map(keys, valuesForMapValue);
-
-
+        
 
         HashMap<String, Object> expected = new HashMap<>();
         for(int i = 0; i < keys.length; i++)
@@ -175,11 +175,7 @@ class ValueAsObjectCopyTest
             expected.put(new String(keys[i]), valuesForHashMap[i]);
         }
 
-
-        boolean equals = value.asObjectCopy().equals(expected);
-
-        // Fails since it is performing array comparison directly
-        assertThat(value.asObjectCopy(), equalTo(expected));
+        assertTrue(MapTestUtil.customComparison(value.asObjectCopy(), expected));
     }
 
     // DIRECT ARRAYS
