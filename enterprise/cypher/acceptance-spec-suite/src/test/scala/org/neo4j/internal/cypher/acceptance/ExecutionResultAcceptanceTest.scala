@@ -28,8 +28,7 @@ import org.neo4j.graphdb.Result
 import org.neo4j.internal.cypher.acceptance.CypherComparisonSupport.Configs
 import org.neo4j.internal.kernel.api.Transaction.Type
 import org.neo4j.internal.kernel.api.security.LoginContext.AUTH_DISABLED
-import org.neo4j.values.virtual.VirtualValues
-
+import org.neo4j.values.storable.Values
 class ExecutionResultAcceptanceTest extends ExecutionEngineFunSuite{
 
   test("closing the result without exhausting it should not fail the transaction") {

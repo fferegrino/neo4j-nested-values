@@ -49,15 +49,19 @@ public abstract class MapValue extends Value
 {
     protected final Map<String,AnyValue> map;
 
-    public MapValue(Map<String,AnyValue> map)
+    public MapValue( Map<String,AnyValue> map )
     {
         this.map = map;
-        for(Map.Entry<String, AnyValue> entry : map.entrySet())
+        for ( Map.Entry<String, AnyValue> entry : map.entrySet() )
         {
-            if(entry.getValue() instanceof Value)
+            if ( entry.getValue() instanceof Value )
+            {
                 this.content = this.content.Combine(MapValueContent.STORABLE);
-            else if (entry.getValue() instanceof VirtualValue)
+            }
+            else if ( entry.getValue() instanceof VirtualValue )
+            {
                 this.content = this.content.Combine(MapValueContent.VIRTUAL);
+            }
         }
     }
 
@@ -101,11 +105,9 @@ public abstract class MapValue extends Value
 
     public static final class MapWrappingMapValue extends MapValue
     {
-
-
         public MapWrappingMapValue( Map<String,AnyValue> map )
         {
-            super(map);
+            super( map );
         }
 
         public Iterable<String> keySet()
@@ -700,47 +702,47 @@ public abstract class MapValue extends Value
     }
 
     @Override
-    public long updateHash(HashFunction hashFunction, long hash)
+    public long updateHash( HashFunction hashFunction, long hash )
     {
         return 0;
     }
 
     @Override
-    int unsafeCompareTo(Value other)
+    int unsafeCompareTo( Value other )
     {
         MapValue mapValue = (MapValue) other;
 
-        if(mapValue.getContent() == MapValueContent.MIXED || this.getContent() == MapValueContent.MIXED)
+        if ( mapValue.getContent() == MapValueContent.MIXED || this.getContent() == MapValueContent.MIXED )
         {
-            throw new IllegalArgumentException("Cannot compare maps that have mixed content");
+            throw new IllegalArgumentException( "Cannot compare maps that have mixed content" );
         }
 
-        if(mapValue.getContent() == this.getContent())
+        if ( mapValue.getContent() == this.getContent() )
         {
-            if(mapValue.getContent() == MapValueContent.EMPTY)
+            if ( mapValue.getContent() == MapValueContent.EMPTY )
             {
                 return 0;
             }
-            return compareTo(mapValue, AnyValues.COMPARATOR);
+            return compareTo( mapValue, AnyValues.COMPARATOR );
         }
 
-        if(mapValue.getContent() == MapValueContent.EMPTY)
+        if ( mapValue.getContent() == MapValueContent.EMPTY )
         {
             return 1;
         }
-        if(this.getContent() == MapValueContent.EMPTY)
+        if ( this.getContent() == MapValueContent.EMPTY )
         {
             return -1;
         }
 
-        throw new IllegalArgumentException(String.format("Cannot compare maps with content %s with %s",
-                this.getContent().name(), mapValue.getContent().name()));
+        throw new IllegalArgumentException( String.format( "Cannot compare maps with content %s with %s",
+                this.getContent().name(), mapValue.getContent().name() ) );
     }
 
     @Override
-    public <E extends Exception> void writeTo(ValueWriter<E> writer) throws E
+    public <E extends Exception> void writeTo( ValueWriter<E> writer ) throws E
     {
-        if (getContent() == MapValueContent.VIRTUAL || getContent() == MapValueContent.MIXED)
+        if ( getContent() == MapValueContent.VIRTUAL || getContent() == MapValueContent.MIXED )
         {
             // Throw an exception or so...
             return;
@@ -757,9 +759,9 @@ public abstract class MapValue extends Value
     {
         // TODO: Validate the usage of a HashMap to provide a "deep copy" of the underlying value
         HashMap<String, Object> deepCopy = new HashMap<>();
-        for (Map.Entry<String, AnyValue> entry : this.map.entrySet())
+        for ( Map.Entry<String, AnyValue> entry : this.map.entrySet() )
         {
-            deepCopy.put(new String(entry.getKey()), ((Value)entry.getValue()).asObjectCopy());
+            deepCopy.put( new String( entry.getKey() ), ((Value)entry.getValue()).asObjectCopy() );
         }
         return deepCopy;
     }
@@ -767,10 +769,11 @@ public abstract class MapValue extends Value
     @Override
     public String prettyPrint()
     {
-        if (getContent() == MapValueContent.EMPTY || getContent() == MapValueContent.STORABLE) {
-            StringBuilder sb = new StringBuilder("{");
+        if ( getContent() == MapValueContent.EMPTY || getContent() == MapValueContent.STORABLE )
+        {
+            StringBuilder sb = new StringBuilder( "{" );
             final String[] sep = new String[]{""};
-            foreach((key, value) ->
+            foreach( ( key, value ) ->
             {
                 sb.append(sep[0]);
                 sb.append(String.format("'%s'", key)); // Single quotes to keep the consistency
@@ -778,7 +781,7 @@ public abstract class MapValue extends Value
                 sb.append(((Value)value).prettyPrint());
                 sep[0] = ", ";
             });
-            sb.append('}');
+            sb.append( '}' );
             return sb.toString();
         }
         else

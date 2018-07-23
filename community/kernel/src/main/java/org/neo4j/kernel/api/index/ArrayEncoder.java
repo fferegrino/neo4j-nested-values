@@ -205,13 +205,13 @@ public final class ArrayEncoder
         }
 
         @Override
-        public void beginMap(int size) throws RuntimeException
+        public void beginMap( int size ) throws RuntimeException
         {
             // TODO: Figure out implementation
         }
 
         @Override
-        public  void writeMap(HashMap<String, Object> map) throws RuntimeException
+        public  void writeMap( HashMap<String, Object> map ) throws RuntimeException
         {
             // TODO: Figure out implementation
         }

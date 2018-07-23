@@ -244,7 +244,7 @@ public class PropertyStore extends CommonAbstractStore<PropertyRecord,NoStoreHea
             {
                 stringStore.updateRecord( valueRecord );
             }
-            if (recordType == PropertyType.MAP)
+            if ( recordType == PropertyType.MAP )
             {
                 stringStore.updateRecord(valueRecord);
             }
@@ -515,7 +515,7 @@ public class PropertyStore extends CommonAbstractStore<PropertyRecord,NoStoreHea
         }
 
         @Override
-        public void writeMap(HashMap<String, Object> map) throws IllegalArgumentException
+        public void writeMap( HashMap<String, Object> map ) throws IllegalArgumentException
         {
             String mapRepresentation = MapValueUtil.stringifyMap(map);
             byte[] encodedMap = encodeString(mapRepresentation);

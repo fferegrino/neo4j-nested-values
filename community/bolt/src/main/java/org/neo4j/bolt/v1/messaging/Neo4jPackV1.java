@@ -159,7 +159,8 @@ public class Neo4jPackV1 implements Neo4jPack
         }
 
         @Override
-        public void writeMap(HashMap<String, Object> map) {
+        public void writeMap( HashMap<String, Object> map )
+        {
             // TODO: Figure out implementation
         }
 

@@ -103,7 +103,7 @@ public interface ValueWriter<E extends Exception>
 
     void beginMap( int size ) throws E;
 
-    void writeMap(HashMap<String, Object> map) throws E;
+    void writeMap( HashMap<String, Object> map ) throws E;
 
     void endMap() throws E;
 
@@ -210,12 +210,12 @@ public interface ValueWriter<E extends Exception>
         }
 
         @Override
-        public void beginMap(int size) throws E
+        public void beginMap( int size ) throws E
         {   // no-op
         }
 
         @Override
-        public void writeMap(HashMap<String, Object> map) throws E
+        public void writeMap( HashMap<String, Object> map ) throws E
         {   // no-op
         }
 

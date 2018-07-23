@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.neo4j.values.storable.CoordinateReferenceSystem;
-import org.neo4j.values.storable.MapValue;
 import org.neo4j.values.virtual.VirtualValueTestUtil;
 
 import static java.lang.Integer.signum;
@@ -39,7 +38,11 @@ import static org.neo4j.values.storable.DurationValue.duration;
 import static org.neo4j.values.storable.LocalDateTimeValue.localDateTime;
 import static org.neo4j.values.storable.LocalTimeValue.localTime;
 import static org.neo4j.values.storable.TimeValue.time;
-import static org.neo4j.values.storable.Values.*;
+import static org.neo4j.values.storable.Values.charValue;
+import static org.neo4j.values.storable.Values.emptyMap;
+import static org.neo4j.values.storable.Values.pointValue;
+import static org.neo4j.values.storable.Values.stringArray;
+import static org.neo4j.values.storable.Values.stringValue;
 import static org.neo4j.values.virtual.VirtualValueTestUtil.list;
 import static org.neo4j.values.storable.ValueTestUtil.map;
 import static org.neo4j.values.virtual.VirtualValueTestUtil.nodes;

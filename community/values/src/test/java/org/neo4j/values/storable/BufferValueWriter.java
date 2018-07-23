@@ -226,7 +226,7 @@ public class BufferValueWriter implements ValueWriter<RuntimeException>
     }
 
     @Override
-    public void writeMap(HashMap<String, Object> map) throws RuntimeException
+    public void writeMap( HashMap<String, Object> map ) throws RuntimeException
     {
         // TODO: Verify implementation
         buffer.add(map);
@@ -237,7 +237,6 @@ public class BufferValueWriter implements ValueWriter<RuntimeException>
     {
         buffer.add( Specials.endMap() );
     }
-
 
     @SuppressWarnings( "WeakerAccess" )
     public static class Specials

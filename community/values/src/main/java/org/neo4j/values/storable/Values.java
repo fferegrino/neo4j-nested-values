@@ -507,12 +507,12 @@ public final class Values
     public static MapValue mapValue( String mapRepresentation )
     {
         Map<String, AnyValue> innerMap = MapValueUtil.parseMap(mapRepresentation);
-        if(innerMap == null)
+        if ( innerMap == null )
         {
             // Something went awfully wrong, should we let the user know?
             return null;
         }
-        return new MapValue.MapWrappingMapValue(innerMap);
+        return new MapValue.MapWrappingMapValue( innerMap );
     }
 
     // BOXED FACTORY METHODS

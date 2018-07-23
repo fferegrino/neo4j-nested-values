@@ -81,12 +81,10 @@ class ValueAsObjectCopyTest
 
         MapValue value = Values.map(keys, valuesForMapValue);
 
-
-
         HashMap<String, Object> expected = new HashMap<>();
-        for(int i = 0; i < keys.length; i++)
+        for ( int i = 0; i < keys.length; i++ )
         {
-            expected.put(new String(keys[i]), valuesForHashMap[i]);
+            expected.put( new String( keys[i] ), valuesForHashMap[i] );
         }
 
         assertTrue(MapTestUtil.customComparison(value.asObjectCopy(), expected));
@@ -127,12 +125,10 @@ class ValueAsObjectCopyTest
 
         MapValue value = Values.map(keys, valuesForMapValue);
 
-
-
         HashMap<String, Object> expected = new HashMap<>();
-        for(int i = 0; i < keys.length; i++)
+        for ( int i = 0; i < keys.length; i++ )
         {
-            expected.put(new String(keys[i]), valuesForHashMap[i]);
+            expected.put( new String( keys[i] ), valuesForHashMap[i] );
         }
 
         assertTrue(MapTestUtil.customComparison(value.asObjectCopy(), expected));
@@ -167,12 +163,11 @@ class ValueAsObjectCopyTest
                 };
 
         MapValue value = Values.map(keys, valuesForMapValue);
-        
 
         HashMap<String, Object> expected = new HashMap<>();
-        for(int i = 0; i < keys.length; i++)
+        for ( int i = 0; i < keys.length; i++ )
         {
-            expected.put(new String(keys[i]), valuesForHashMap[i]);
+            expected.put( new String( keys[i] ), valuesForHashMap[i] );
         }
 
         assertTrue(MapTestUtil.customComparison(value.asObjectCopy(), expected));

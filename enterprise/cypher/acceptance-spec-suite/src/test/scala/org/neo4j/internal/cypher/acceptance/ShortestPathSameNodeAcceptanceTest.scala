@@ -30,7 +30,7 @@ import org.neo4j.graphdb.RelationshipType
 import org.neo4j.graphdb.factory.GraphDatabaseSettings
 import org.neo4j.internal.cypher.acceptance.CypherComparisonSupport.Versions.{V3_1, V3_3}
 import org.neo4j.internal.cypher.acceptance.CypherComparisonSupport._
-import org.neo4j.values.virtual.VirtualValues
+import org.neo4j.values.storable.Values
 
 class ShortestPathSameNodeAcceptanceTest extends ExecutionEngineFunSuite with RunWithConfigTestSupport with CypherComparisonSupport {
 

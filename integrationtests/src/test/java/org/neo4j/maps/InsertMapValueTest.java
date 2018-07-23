@@ -1,6 +1,32 @@
+/*
+ * Copyright (c) 2002-2018 "Neo4j,"
+ * Neo4j Sweden AB [http://neo4j.com]
+ *
+ * This file is part of Neo4j Enterprise Edition. The included source
+ * code can be redistributed and/or modified under the terms of the
+ * GNU AFFERO GENERAL PUBLIC LICENSE Version 3
+ * (http://www.fsf.org/licensing/licenses/agpl-3.0.html) with the
+ * Commons Clause, as found in the associated LICENSE.txt file.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * Neo4j object code can be licensed independently from the source
+ * under separate terms from the AGPL. Inquiries can be directed to:
+ * licensing@neo4j.com
+ *
+ * More information is also available at:
+ * https://neo4j.com/licensing/
+ */
 package org.neo4j.maps;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -46,12 +72,13 @@ public class InsertMapValueTest
         }
     }
 
-    public static HashMap<String, Object> createHashMap(Object... keyOrVal)
+    public static HashMap<String, Object> createHashMap( Object... keyOrVal )
     {
         HashMap<String, Object> retVal = new HashMap<>();
 
         assert keyOrVal.length % 2 == 0;
-        for (int i = 0; i < keyOrVal.length; i += 2) {
+        for ( int i = 0; i < keyOrVal.length; i += 2 )
+        {
             String key = (String) keyOrVal[i];
             Object value = keyOrVal[i + 1];
             retVal.put(key, value);
@@ -85,14 +112,14 @@ public class InsertMapValueTest
         Result result = db.execute("MATCH (w:Book {title: 'Harry Potter y la Piedra Filosofal'})\n" +
                 "RETURN w");
 
-        if (result.hasNext())
+        if ( result.hasNext() )
         {
             Map<String, Object> firstRow = result.next();
             NodeProxy node = (NodeProxy) firstRow.get("w");
             Object property = node.getProperty("author");
             assertTrue("Not an instance of HashMap", property instanceof HashMap);
             HashMap<String, Object> map = (HashMap<String, Object>) property;
-            assertThat(expected,equalTo(map));
+            assertThat( expected,equalTo(map) );
         }
         tx.success();
         tx.close();
@@ -108,21 +135,21 @@ public class InsertMapValueTest
                 "RETURN p");
 
         HashMap<String, Object> expected = createHashMap(
-                "year", 1991l,
-                "month", 12l,
-                "day", 6l);
+                "year", 1991L,
+                "month", 12L,
+                "day", 6L);
 
         Result result = db.execute("MATCH (p:Person)\n" +
                 "RETURN p");
 
-        if (result.hasNext())
+        if ( result.hasNext() )
         {
             Map<String, Object> firstRow = result.next();
             NodeProxy node = (NodeProxy) firstRow.get("p");
             Object property = node.getProperty("dob");
             assertTrue("Not an instance of HashMap", property instanceof HashMap);
             HashMap<String, Object> map = (HashMap<String, Object>) property;
-            assertTrue(map.equals(expected));
+            assertTrue( map.equals(expected) );
         }
         tx.success();
         tx.close();
@@ -131,8 +158,6 @@ public class InsertMapValueTest
     @Test
     public void shouldTestInsertNullValues()
     {
-
-
         Transaction tx = db.beginTx();
         db.execute("CREATE (p:Person{" +
                 "this_contains_nulls:{n1:null, n2:null, n3:null} " +
@@ -147,14 +172,14 @@ public class InsertMapValueTest
         Result result = db.execute("MATCH (p:Person)\n" +
                 "RETURN p");
 
-        if (result.hasNext())
+        if ( result.hasNext() )
         {
             Map<String, Object> firstRow = result.next();
             NodeProxy node = (NodeProxy) firstRow.get("p");
             Object property = node.getProperty("this_contains_nulls");
             assertTrue("Not an instance of HashMap", property instanceof HashMap);
             HashMap<String, Object> map = (HashMap<String, Object>) property;
-            assertTrue(map.equals(expected));
+            assertTrue( map.equals(expected) );
         }
         tx.success();
         tx.close();
@@ -177,24 +202,24 @@ public class InsertMapValueTest
         Result result = db.execute("MATCH (p:Person)\n" +
                 "RETURN p");
 
-        if (result.hasNext())
+        if ( result.hasNext() )
         {
             Map<String, Object> firstRow = result.next();
             NodeProxy node = (NodeProxy) firstRow.get("p");
             Object property = node.getProperty("mixed");
             assertTrue("Not an instance of HashMap", property instanceof HashMap);
             HashMap<String, Object> map = (HashMap<String, Object>) property;
-            assertTrue(map.equals(expected));
+            assertTrue( map.equals(expected) );
         }
         tx.success();
         tx.close();
     }
 
     @Test
-    @Ignore("Test takes too long to run, not sure why")
+    @Ignore( "Test takes too long to run, not sure why" )
     public void shouldTestInsertNested()
     {
-        try(Transaction tx = db.beginTx())
+        try ( Transaction tx = db.beginTx() )
         {
             db.execute("CREATE (p:Person{" +
                     "nested:{n1:'Neo4j', n2:true, n3:1.5, inner:{i:'familymart'}} " +
@@ -210,12 +235,13 @@ public class InsertMapValueTest
             Result result = db.execute("MATCH (p:Person)\n" +
                     "RETURN p");
 
-            if (result.hasNext()) {
+            if ( result.hasNext() )
+            {
                 Map<String, Object> firstRow = result.next();
                 NodeProxy node = (NodeProxy) firstRow.get("p");
                 Object property = node.getProperty("nested");
                 HashMap<String, Object> map = (HashMap<String, Object>) property;
-                assertEquals(expected, map);
+                assertEquals( expected, map );
             }
             tx.success();
         }
