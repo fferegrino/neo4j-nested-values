@@ -244,7 +244,7 @@ public class PropertyStore extends CommonAbstractStore<PropertyRecord,NoStoreHea
             {
                 stringStore.updateRecord( valueRecord );
             }
-            if ( recordType == PropertyType.MAP )
+            else if ( recordType == PropertyType.MAP )
             {
                 stringStore.updateRecord(valueRecord);
             }
