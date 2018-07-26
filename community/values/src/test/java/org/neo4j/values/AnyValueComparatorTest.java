@@ -119,7 +119,7 @@ class AnyValueComparatorTest
             path( nodes( 3L ), relationships() ),
             path( nodes( 4L, 5L ), relationships( 2L ) ),
             path( nodes( 5L, 4L ), relationships( 2L ) ),
-            
+
             // MAP LIKE TYPES
 
             // Map
