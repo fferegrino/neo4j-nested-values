@@ -36,18 +36,13 @@ public class MapValueUtil
      * @param mapRepresentation
      * @return
      */
-    public static Map<String, AnyValue> parseMap( String mapRepresentation )
+    public static Map<String, Object> parseMap( String mapRepresentation )
     {
         ObjectMapper mapper = new ObjectMapper();
         try
         {
             HashMap<String, Object> hashMap = (HashMap<String, Object>) mapper.readValue(mapRepresentation, HashMap.class);
-            HashMap<String, AnyValue> avMap = new HashMap<>();
-            for ( Map.Entry<String, Object> entry : hashMap.entrySet() )
-            {
-                avMap.put(entry.getKey(), Values.of(entry.getValue()));
-            }
-            return avMap;
+            return hashMap;
         }
         catch ( IOException e )
         {

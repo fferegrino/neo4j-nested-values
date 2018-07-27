@@ -22,21 +22,23 @@ package org.neo4j.values.storable;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 import org.neo4j.helpers.collection.Iterables;
 import org.neo4j.values.AnyValue;
-import static org.neo4j.values.virtual.VirtualValues.nodeValue;
-import static org.neo4j.values.storable.Values.stringArray;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.neo4j.values.storable.Values.EMPTY_MAP;
-import static org.neo4j.values.storable.Values.intValue;
 import static org.neo4j.values.storable.Values.floatValue;
-import static org.neo4j.values.storable.Values.map;
+import static org.neo4j.values.storable.Values.intValue;
+import static org.neo4j.values.storable.Values.longValue;
+import static org.neo4j.values.storable.Values.stringArray;
 import static org.neo4j.values.storable.Values.stringValue;
+import static org.neo4j.values.storable.Values.map;
+import static org.neo4j.values.virtual.VirtualValues.nodeValue;
 
 class MapValueTest
 {
@@ -183,6 +185,73 @@ class MapValueTest
         MapValue emptyMap = mapValue();
 
         assertEquals(MapValueContent.EMPTY, emptyMap.getContent());
+    }
+
+    @Test
+    void testValueOfMapSimple()
+    {
+        MapValue expected = mapValue("string", stringValue("hello"),
+                "int", intValue(10),
+                "long", longValue(Long.MAX_VALUE));
+
+        HashMap<String, Object> pre = new HashMap<>();
+        pre.put( "string", "hello" );
+        pre.put( "int", 10 );
+        pre.put( "long", Long.MAX_VALUE);
+
+        MapValue actual = (MapValue) Values.of(pre);
+
+        assertMapValueEquals(actual, expected);
+    }
+
+    @Test
+    void testValueOfMapNested()
+    {
+        MapValue expected = mapValue( "string", stringValue( "hello" ),
+                "int", intValue( 10 ),
+                "long", longValue( Long.MAX_VALUE ),
+                "innerMap", mapValue( "int", intValue(10) ) );
+
+        HashMap<String, Object> innerMap = new HashMap<>();
+        innerMap.put( "int", 10 );
+        HashMap<String, Object> pre = new HashMap<>();
+        pre.put( "string", "hello" );
+        pre.put( "int", 10 );
+        pre.put( "long", Long.MAX_VALUE );
+        pre.put( "innerMap", innerMap );
+
+        MapValue actual = (MapValue) Values.of(pre);
+
+        assertMapValueEquals(actual, expected);
+    }
+
+    @Test
+    void testValueOfMapDeeplyNested()
+    {
+        MapValue expected = mapValue("string", stringValue("hello"),
+                "int", intValue(10),
+                "long", longValue(Long.MAX_VALUE),
+                "innerMap", mapValue("int", intValue(10),
+                        "innerInnerMap", mapValue("string", stringValue("catorce"),
+                                "float", floatValue(10.5F))));
+
+        HashMap<String, Object> innerInnerMap = new HashMap<>();
+        innerInnerMap.put( "string", "catorce" );
+        innerInnerMap.put( "float", 10.5F );
+
+        HashMap<String, Object> innerMap = new HashMap<>();
+        innerMap.put( "int", 10 );
+        innerMap.put( "innerInnerMap", innerInnerMap );
+
+        HashMap<String, Object> pre = new HashMap<>();
+        pre.put( "string", "hello" );
+        pre.put( "int", 10 );
+        pre.put( "long", Long.MAX_VALUE );
+        pre.put( "innerMap", innerMap );
+
+        MapValue actual = (MapValue) Values.of( pre );
+
+        assertMapValueEquals( actual, expected );
     }
 
     @Test
