@@ -19,7 +19,9 @@
  */
 package org.neo4j.values.storable;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.neo4j.values.virtual.MapValueBuilder;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.neo4j.values.storable.Values.booleanArray;
@@ -44,6 +46,37 @@ import static org.neo4j.values.utils.AnyValueTestUtil.assertEqual;
 
 class ValuesTest
 {
+    @Test
+    void shouldParseMapWithArrays()
+    {
+        MapValueBuilder mv = new MapValueBuilder();
+        mv.add("ints", intArray(new int[] { 1, 2, 3}));
+        mv.add("bools", booleanArray(new boolean [] { true, false, true, false, false }));
+        MapValue build = mv.build();
+
+
+        MapValue mapValue = Values.mapValue("{\"ints\":[1,2,3], \"bools\":[ true, false, true, false, false ]}}");
+
+        Assert.assertEquals(build, mapValue);
+    }
+
+    @Test
+    void shouldParseMapWithArraysNested()
+    {
+        MapValueBuilder mvInner = new MapValueBuilder();
+        mvInner.add("ints", intArray(new int[] { 1, 2, 3}));
+        mvInner.add("bools", booleanArray(new boolean [] { true, false, true, false, false }));
+
+        MapValueBuilder mvOuter  = new MapValueBuilder();
+        mvOuter.add("map", mvInner.build());
+
+        MapValue mapValue = Values.mapValue("{\"map\": " +
+                        "{\"ints\":[1,2,3], \"bools\":[ true, false, true, false, false ]}}" +
+                " }");
+
+        Assert.assertEquals(mvOuter.build(), mapValue);
+    }
+
     @Test
     void shouldBeEqualToItself()
     {

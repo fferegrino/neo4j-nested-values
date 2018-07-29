@@ -20,17 +20,18 @@
 package org.neo4j.values.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.neo4j.values.AnyValue;
 import org.neo4j.values.storable.Values;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MapValueUtil
 {
-
     /**
      * Turn a string representation of a Map<String, Object> into a Map<String, AnyValue>.
      * @param mapRepresentation
@@ -39,17 +40,87 @@ public class MapValueUtil
     public static Map<String, Object> parseMap( String mapRepresentation )
     {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.enable( DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY );
         try
         {
-            HashMap<String, Object> hashMap = (HashMap<String, Object>) mapper.readValue(mapRepresentation, HashMap.class);
+            HashMap<String, Object> hashMap = (HashMap<String, Object>) mapper.readValue( mapRepresentation, HashMap.class );
+            replaceArrays( hashMap );
             return hashMap;
         }
         catch ( IOException e )
         {
-            // I'm eating this exception, this is NOT good
+            // TODO: Indicate error while parsing
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Using ObjectMapper arrays are being received as Object[] containing... Object, the purpose of this method is to
+     * cast each array into the original values it contains, i.e. if the data type of the elementis in the array is
+     * Integer, it will get transformed to an array of type Integer[]
+     * @param map
+     */
+    private static void replaceArrays(HashMap<String, Object> map)
+    {
+        for ( String key : map.keySet() )
+        {
+            Object value = map.get(key);
+            if ( value instanceof Object[] )
+            {
+                Object[] objects = (Object[]) value;
+                if ( objects.length > 0 )
+                {
+                    Object first =  objects[0];
+                    if ( first instanceof String )
+                    {
+                        map.put( key, Arrays.copyOf( objects, objects.length, String[].class ) );
+                    }
+                    else if ( first instanceof Byte )
+                    {
+                        map.put( key, Arrays.copyOf( objects, objects.length, Byte[].class ) );
+                    }
+                    else if ( first instanceof Long )
+                    {
+                        map.put( key, Arrays.copyOf( objects, objects.length, Long[].class ) );
+                    }
+                    else if ( first instanceof Integer )
+                    {
+                        map.put( key, Arrays.copyOf( objects, objects.length, Integer[].class ) );
+                    }
+                    else if ( first instanceof Double )
+                    {
+                        map.put( key, Arrays.copyOf( objects, objects.length, Double[].class ) );
+                    }
+                    else if ( first instanceof Float )
+                    {
+                        map.put( key, Arrays.copyOf( objects, objects.length, String[].class ) );
+                    }
+                    else if ( first instanceof Boolean )
+                    {
+                        map.put( key, Arrays.copyOf( objects, objects.length, Boolean[].class ) );
+                    }
+                    else if ( first instanceof Character )
+                    {
+                        map.put( key, Arrays.copyOf( objects, objects.length, Character[].class ) );
+                    }
+                    else if ( first instanceof Short )
+                    {
+                        map.put( key, Arrays.copyOf( objects, objects.length, Short[].class ) );
+                    }
+                    else
+                    {
+                        // TODO: Not currently supported
+                    }
+                }
+            }
+            else if ( value instanceof HashMap<?,?> )
+            {
+                HashMap<String, Object> innerMap = ( HashMap<String, Object> ) value;
+                replaceArrays( innerMap );
+            }
+        }
+
     }
 
     /**
