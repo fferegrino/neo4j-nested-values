@@ -237,9 +237,9 @@ public enum PropertyType
         }
 
         @Override
-        public int calculateNumberOfBlocksUsed( long firstBlock )
+        public byte[] readDynamicRecordHeader( byte[] recordBytes )
         {
-            return LongerShortString.calculateNumberOfBlocksUsed( firstBlock );
+            return EMPTY_BYTE_ARRAY;
         }
     };
 
