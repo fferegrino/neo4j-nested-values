@@ -30,6 +30,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.String.format;
+
 public class MapValueUtil
 {
     /**
@@ -61,7 +63,7 @@ public class MapValueUtil
      * Integer, it will get transformed to an array of type Integer[]
      * @param map
      */
-    private static void replaceArrays(HashMap<String, Object> map)
+    private static void replaceArrays( HashMap<String, Object> map )
     {
         for ( String key : map.keySet() )
         {
@@ -110,13 +112,19 @@ public class MapValueUtil
                     }
                     else
                     {
-                        // TODO: Not currently supported
+                        throw new IllegalArgumentException(
+                                format( "[%s:%s] is not a supported value for arrays inside maps", first, first.getClass().getName() ) );
                     }
+                }
+                else
+                {
+                    // I've seen that empty arrays are treated as empty string arrays
+                    map.put( key, new String[0]);
                 }
             }
             else if ( value instanceof HashMap<?,?> )
             {
-                HashMap<String, Object> innerMap = ( HashMap<String, Object> ) value;
+                HashMap<String, Object> innerMap = (HashMap<String, Object>) value;
                 replaceArrays( innerMap );
             }
         }

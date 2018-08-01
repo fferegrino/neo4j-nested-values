@@ -54,7 +54,6 @@ class ValuesTest
         mv.add("bools", booleanArray(new boolean [] { true, false, true, false, false }));
         MapValue build = mv.build();
 
-
         MapValue mapValue = Values.mapValue("{\"ints\":[1,2,3], \"bools\":[ true, false, true, false, false ]}}");
 
         Assert.assertEquals(build, mapValue);
@@ -73,6 +72,17 @@ class ValuesTest
         MapValue mapValue = Values.mapValue("{\"map\": " +
                         "{\"ints\":[1,2,3], \"bools\":[ true, false, true, false, false ]}}" +
                 " }");
+
+        Assert.assertEquals(mvOuter.build(), mapValue);
+    }
+
+    @Test
+    void shouldParseMapWithEmptyArray()
+    {
+        MapValueBuilder mvOuter  = new MapValueBuilder();
+        mvOuter.add("empty", stringArray());
+
+        MapValue mapValue = Values.mapValue("{\"empty\": [] }");
 
         Assert.assertEquals(mvOuter.build(), mapValue);
     }
