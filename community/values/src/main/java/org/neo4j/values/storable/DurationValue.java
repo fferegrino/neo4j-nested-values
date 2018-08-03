@@ -187,10 +187,31 @@ public final class DurationValue extends ScalarValue implements TemporalAmount, 
                     .thenComparingLong( d -> d.months )
                     .thenComparingLong( d -> d.days )
                     .thenComparingLong( d -> d.seconds );
+
     private final long months;
     private final long days;
     private final long seconds;
     private final int nanos;
+
+    public long getMonths()
+    {
+        return this.months;
+    }
+
+    public long getDays()
+    {
+        return this.days;
+    }
+
+    public long getSeconds()
+    {
+        return this.seconds;
+    }
+
+    public int getNanos()
+    {
+        return this.nanos;
+    }
 
     private static DurationValue newDuration( long months, long days, long seconds, long nanos )
     {
